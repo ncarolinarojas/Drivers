@@ -10,7 +10,7 @@ const migrationData = async () => {
             const apiResponse = await axios.get("http://localhost:5000/drivers")
             const allApiDrivers = apiResponse.data.map((api) => {
                 return {
-                    id: api.id + '_new',
+                    id: api.id + '_cod',
                     forename: api.name.forename,
                     surname: api.name.surname,
                     description: api.description,
@@ -24,7 +24,7 @@ const migrationData = async () => {
                     await Driver.create(driverData)
                     console.log('Data from API charging in data base');
                 } catch (err) {
-                    console.log('There is a problem')
+                    console.log('There is a problem', err)
                 }
             }
         }
