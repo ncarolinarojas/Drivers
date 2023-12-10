@@ -41,7 +41,6 @@ const migrationData = async () => {
 
             for (const teamData of allTeams) {
                 try {
-                    // Verificar si el equipo ya existe en la base de datos
                     const existingTeam = await Team.findOne({
                         where: {
                             name: teamData.name
@@ -50,7 +49,6 @@ const migrationData = async () => {
 
                     if (!existingTeam) {
                         await Team.create(teamData);
-                        console.log(`Team '${teamData.name}' added to the database`);
                     } else {
                         console.log(`Team '${teamData.name}' already exists in the database`);
                     }

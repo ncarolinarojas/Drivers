@@ -2,7 +2,8 @@ const { Router } = require("express");
 const { getDrivers } = require('../controllers/getDrivers');
 const { getDriverByPkAndTeams } = require('../controllers/getDriverByPkAndTeams');
 const { searchDriversByName } = require('../controllers/searchDriversByName');
-const { postDriver } = require('../controllers/postDriver')
+const { postDriver } = require('../controllers/postDriver');
+const { getTeams } = require('../controllers/getTeams');
 
 const router = Router();
 
@@ -58,6 +59,16 @@ router.post('/postDriver', async (req, res) => {
 
         res.status(200).json(newDriver)
 
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
+
+//get Teams
+router.get('/teams', async (req, res) => {
+    try {
+        await getTeams()
+            .then(teams => res.status(200).json(teams))
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
