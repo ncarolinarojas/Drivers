@@ -1,17 +1,16 @@
 const axios = require('axios');
-const { Driver, Teams } = require('../db');
+const { Driver, Team } = require('../db');
 const path = require('path')
 
 const migrationData = async () => {
     try {
         const dataInDB = await Driver.count();
-        const dataTeams = await Teams.count();
+        const dataTeams = await Team.count();
 
         if (!dataInDB) {
             const apiResponse = await axios.get("http://localhost:5000/drivers")
             const allApiDrivers = apiResponse.data.map((api) => {
                 return {
-                    id: api.id + '_cod',
                     forename: api.name.forename,
                     surname: api.name.surname,
                     description: api.description,
@@ -43,14 +42,14 @@ const migrationData = async () => {
             for (const teamData of allTeams) {
                 try {
                     // Verificar si el equipo ya existe en la base de datos
-                    const existingTeam = await Teams.findOne({
+                    const existingTeam = await Team.findOne({
                         where: {
                             name: teamData.name
                         }
                     });
 
                     if (!existingTeam) {
-                        await Teams.create(teamData);
+                        await Team.create(teamData);
                         console.log(`Team '${teamData.name}' added to the database`);
                     } else {
                         console.log(`Team '${teamData.name}' already exists in the database`);

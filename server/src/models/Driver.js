@@ -6,9 +6,13 @@ module.exports = (sequelize) => {
   sequelize.define('Driver', {
     id: {
       type: DataTypes.STRING,
+      primaryKey: true,
       allowNull: false,
-      primaryKey: true
-    },
+      unique: true,
+      defaultValue: () => {
+        // Genera un ID único que comienza con 'dri' y tiene un número incrementado automáticamente
+        return `dri${Math.floor(1 + Math.random() * 900000)}`;
+      }},
     forename: {
       type: DataTypes.STRING,
       allowNull: false
@@ -27,7 +31,7 @@ module.exports = (sequelize) => {
     },
     nacionality: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     }, 
     birth: {
       type: DataTypes.STRING,

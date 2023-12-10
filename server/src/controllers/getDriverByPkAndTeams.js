@@ -1,10 +1,10 @@
-const { Driver, Teams } = require('../db')
+const { Driver, Team } = require('../db')
 
 const getDriverByPkAndTeams = async (idDriver) => {
     const driverDetail = await Driver.findByPk(idDriver, {
         include: [
             {
-                model: Teams,
+                model: Team,
                 through: 'driver_teams',
                 attributes: ['id', 'name']
             }

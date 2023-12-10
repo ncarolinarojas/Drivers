@@ -1,4 +1,4 @@
-const { Driver, Teams } = require('../db');
+const { Driver, Team } = require('../db');
 const { Op } = require('sequelize');
 
 const searchDriversByName = async (queryName) => {
@@ -11,7 +11,7 @@ const searchDriversByName = async (queryName) => {
             },
             include: [
                 {
-                    model: Teams,
+                    model: Team,
                     through: 'driver_teams',
                     attributes: ['id', 'name']
                 }
