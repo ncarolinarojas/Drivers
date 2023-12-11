@@ -13,7 +13,7 @@ function LandingPage() {
       <h3>In this app you can watch information about drivers from F1 and create news. Enjoy it!</h3>
       </div>
       <NavLink to={'/home'}>
-        <Button name={"Buenas"} />
+        <Button name={'Login'} />
       </NavLink>
     </div>
     </Layout>
