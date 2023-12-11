@@ -19,7 +19,7 @@ function Navbar() {
                 <div>
                     <ul>
                         <li className='link'>
-                            <NavLink to={'/createDriver'} className='link'>Create driver!</NavLink>
+                            <NavLink to={'/createDriver'} className='link'>Create driver</NavLink>
                         </li>
                     </ul>
                 </div>

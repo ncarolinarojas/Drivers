@@ -10,7 +10,7 @@ ul {
     background-color: black;
 }
 
-.image{
+.image {
     width: 100%;
     height: 100%;
 }
@@ -34,4 +34,6 @@ ul {
     text-decoration: none;
     color: white;
     cursor: pointer;
+    font-family: 'Rethink Sans', sans-serif;
+    margin-right: 20px;
 }
