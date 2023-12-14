@@ -1,6 +1,11 @@
+import Form from "../../components/Form";
+import Layout from '../../components/Layout';
+
 function CreateDriver() {
   return (
-    <div>index</div>
+    <Layout>
+      <Form/>
+    </Layout>
   )
 }
 
