@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import validate from "./validate";
 import axios from 'axios';
+import teams from "./teams";
 
-function Form() {
+function FormDriver() {
 
     const [driver, setDriver] = useState({
         forename: "",
@@ -38,17 +39,27 @@ function Form() {
             return;
         }
 
+
         axios.post('http://127.0.0.1:3001/postDriver', driver)
             .then((res) => {
                 if (res.status === 200) {
-                    alert('driver created')
+                    setError({ ...error, 
+                        forename: '',
+                        surname: '',
+                        description: '',
+                        image: '',
+                        nacionality: '',
+                        birth: '',
+                        message: 'Good job! Created!'
+                    })
                     setDriver({
                         forename: "",
                         surname: "",
                         description: "",
                         image: "",
                         nacionality: "",
-                        birth: ""
+                        birth: "",
+                        teams: []
                     })
                 } else {
                     console.error('Error creating activity');
@@ -58,9 +69,18 @@ function Form() {
             .catch((error) => {
                 alert(error)
             })
-
-        console.log('esta funcionando')
     }
+
+    const [teamsOptions, setTeamsOptions] = useState([]);
+
+    useEffect(() => {
+        const fetchTeams = async () => {
+            const options = await teams();
+            setTeamsOptions(options);
+        };
+
+        fetchTeams();
+    }, []);
 
     return (
         <div>
@@ -71,7 +91,11 @@ function Form() {
                         type='text'
                         name='forename'
                         value={driver.forename}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                    />
+                    <div>
+                        <span>{error.forename}</span>
+                    </div>
                 </div>
                 <div>
                     <label htmlFor='surname'>Last Name</label>
@@ -81,6 +105,10 @@ function Form() {
                         value={driver.surname}
                         onChange={handleChange}
                     />
+                    <div>
+                        <span>{error.surname}</span>
+                    </div>
+
                 </div>
                 <div>
                     <label htmlFor='description'>Description</label>
@@ -90,6 +118,9 @@ function Form() {
                         value={driver.description}
                         onChange={handleChange}
                     />
+                    <div>
+                        <span>{error.description}</span>
+                    </div>
                 </div>
                 <div>
                     <label htmlFor='image'>URL image</label>
@@ -99,6 +130,9 @@ function Form() {
                         value={driver.image}
                         onChange={handleChange}
                     />
+                    <div>
+                        <span>{error.image}</span>
+                    </div>
                 </div>
                 <div>
                     <label htmlFor='nacionality'>Nationality</label>
@@ -108,6 +142,9 @@ function Form() {
                         value={driver.nacionality}
                         onChange={handleChange}
                     />
+                    <div>
+                        <span>{error.nacionality}</span>
+                    </div>
                 </div>
                 <div>
                     <label htmlFor='birth'>Birth</label>
@@ -117,8 +154,31 @@ function Form() {
                         value={driver.birth}
                         onChange={handleChange}
                     />
+                    <div>
+                        <span>{error.birth}</span>
+                    </div>
                 </div>
-                <span> {error.message}</span>
+
+                <div className='teams'>
+                <p>Select teams</p>
+                <label>Teams</label>
+                <select 
+                id="teams" 
+                onChange={handleChange}
+                multiple
+                style={{ height: "200px" }}
+                >
+                    {teamsOptions.map((team) => (
+                        <option key={team.id} value={team.id}>
+                            {team.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+                <div>
+                    <span> {error.message}</span>
+                </div>
                 <button type="submit" className='submit'>Submit</button>
 
             </form>
@@ -126,4 +186,4 @@ function Form() {
     )
 }
 
-export default Form
+export default FormDriver

@@ -1,5 +1,6 @@
-import {legacy_createStore as createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
+import { createStore } from 'redux';
 
 
-const store = createStore()
+const store = createStore(reducer)
+
+export default store;

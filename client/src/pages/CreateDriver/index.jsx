@@ -1,10 +1,10 @@
-import Form from "../../components/Form";
+import FormDriver from '../../components/Form';
 import Layout from '../../components/Layout';
 
 function CreateDriver() {
   return (
     <Layout>
-      <Form/>
+      <FormDriver/>
     </Layout>
   )
 }
