@@ -1,33 +1,10 @@
 const axios = require('axios');
-const { Driver, Team } = require('../db');
+const { Team } = require('../db');
 const path = require('path')
 
 const migrationData = async () => {
     try {
-        const dataInDB = await Driver.count();
         const dataTeams = await Team.count();
-
-        if (!dataInDB) {
-            const apiResponse = await axios.get("http://localhost:5000/drivers")
-            const allApiDrivers = apiResponse.data.map((api) => {
-                return {
-                    forename: api.name.forename,
-                    surname: api.name.surname,
-                    description: api.description,
-                    image: api.image.url ? api.image.url : path.join(__dirname, 'assets', 'DriverNotFound.png'),
-                    nacionality: api.nationality,
-                    birth: api.dob ? api.dob : "Unknown"
-                }
-            })
-            for (const driverData of allApiDrivers) {
-                try {
-                    await Driver.create(driverData)
-                    console.log('Data from API charging in data base');
-                } catch (err) {
-                    console.log('There is a problem', err)
-                }
-            }
-        }
 
         if (!dataTeams) {
             const apiResponse2 = await axios.get("http://localhost:5000/drivers")
