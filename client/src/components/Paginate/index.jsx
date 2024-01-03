@@ -1,4 +1,5 @@
 import React from "react";
+import '../Paginate/pages.css'
 
 export const Pagination = ({
   driversPerPage,
@@ -44,6 +45,7 @@ export const Pagination = ({
     <nav
       role="navigation"
       aria-label="pagination"
+      className='pagi'
     >
       <a
         className={`${["pagination-previous"]} ${
@@ -51,7 +53,7 @@ export const Pagination = ({
         }`}
         onClick={onPreviusPage}
       >
-        Previous
+        <button className='button2'>Previous</button>
       </a>
 
       {visiblePageNumbers.map((noPage) => (
@@ -71,7 +73,7 @@ export const Pagination = ({
         }`}
         onClick={onNextPage}
       >
-        Next page
+        <button className='button2'>Next page</button>
       </a>
     </nav>
   );

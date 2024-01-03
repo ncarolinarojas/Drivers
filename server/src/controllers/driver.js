@@ -1,6 +1,7 @@
 const { Driver, Team } = require("../db");
 const Sequelize = require("sequelize");
 const axios = require("axios");
+const path = require("path");
 
 const getAllApiDrivers = async () => {
   let drivers = [];
@@ -33,13 +34,15 @@ const cleanArray = (arr) => {
 const getBddDrivers = async () => {
   const bddDrivers = await Driver.findAll();
 
+  const defaultImage = path.join(__dirname, 'assets', 'DriverNotFound.png')
+
   const driversMap = bddDrivers.map((driver) => {
     return {
       id: driver.id,
       forename: driver.forename,
       surname: driver.surname,
       description: driver.description,
-      image: driver.image,
+      image: driver.image ? driver.image : defaultImage,
       nationality: driver.nationality,
       dob: driver.dob,
       created: true,
@@ -60,12 +63,14 @@ const getBddDriverById = async (id) => {
     ],
   });
 
+  const defaultImage = path.join(__dirname, 'assets', 'DriverNotFound.png')
+
   return {
     id: bddDriver.id,
     forename: bddDriver.forename,
     surname: bddDriver.surname,
     description: bddDriver.description,
-    image: bddDriver.image,
+    image: bddDriver.image ? bddDriver.image : defaultImage,
     nationality: bddDriver.nationality,
     dob: bddDriver.dob,
     teams: bddDriver.Teams.map((team) => team.teamName).join(", "),

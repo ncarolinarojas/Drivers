@@ -3,8 +3,9 @@ import Card from '../Card/index';
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Pagination } from '../Paginate/index';
-//import { orderCards, filterCards } from "../../redux/actions/actions";
+import { orderCards, filterCards } from '../../redux/action';
 import '../Cards/cards.css';
+import image from '../../assets/DriverNotFound.png'
 
 const Cards = () => {
   const dispatch = useDispatch();
@@ -35,8 +36,8 @@ const Cards = () => {
         <label>Order: </label>
         <select name="driversOrder" onChange={handleOrder}>
           <option value="none">None</option>
-          <option value="ascendant">Name: Ascendant</option>
-          <option value="decendent">Name: Decendent</option>
+          <option value="ascendant">LasName: Ascendant</option>
+          <option value="decendent">LasName: Decendent</option>
           <option value="younger">Age: Younger</option>
           <option value="older">Age: Older</option>
         </select>
@@ -65,7 +66,7 @@ const Cards = () => {
                 id={driver.id}
                 forename={driver.forename}
                 surname={driver.surname}
-                image={driver.image}
+                image={driver.image? driver.image : image }
                 nationality={driver.nationality}
                 dob={driver.dob}
                 description={driver.description}
