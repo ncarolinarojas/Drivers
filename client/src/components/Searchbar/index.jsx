@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { restart, searchDriver } from "../../redux/action/index";
+import { searchDriver } from "../../redux/action/index";
+import '../Searchbar/search.css'
 
 
 export default function SearchBar({ onSearch }) {
@@ -16,26 +17,23 @@ export default function SearchBar({ onSearch }) {
     dispatch(searchDriver(input));
   };
 
-  const reset = (event) => {
-    dispatch(restart());
-  };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='search'>
+        <div className='inputbox'>
         <input
           type="search"
           onChange={handleChange}
+          placeholder='Write a driver name here!'
         />
+        </div>
         <button
+        className='button'
           onClick={handleSubmit}
           type="submit"
         >
           Search
-        </button>
-
-        <button onClick={reset}>
-          Restart
         </button>
       </form>
     </div>

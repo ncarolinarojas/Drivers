@@ -57,7 +57,7 @@ export const searchDriver = (driver) => {
   return async (dispatch) => {
     try {
       let response = (
-        await axios.get(`http://localhost:3001/drivers?name.forename=${driver}`)
+        await axios.get(`http://127.0.0.1:3001/drivers/name?name=${driver}`)
       ).data;
       dispatch({
         type: SEARCH_DRIVER,

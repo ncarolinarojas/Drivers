@@ -10,5 +10,10 @@
     flex-direction: column;
     margin-bottom: 30px;
     top: 10px;
+    width: 250px;
+}
+
+a {
+    display: flex;
     justify-content: center;
 }
