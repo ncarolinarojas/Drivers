@@ -1,7 +1,5 @@
 const { Router } = require("express");
-const { getDrivers } = require('../controllers/getDrivers');
-const { getDriverByPkAndTeams } = require('../controllers/getDriverByPkAndTeams');
-const { searchDriversByName } = require('../controllers/searchDriversByName');
+const {getAllDrivers, getDriverById, getDriverByName} = require('../controllers/driver')
 const { postDriver } = require('../controllers/postDriver');
 const { getTeams } = require('../controllers/getTeams');
 
@@ -10,7 +8,7 @@ const router = Router();
 //Route get drivers
 router.get('/drivers', async (req, res) => {
     try {
-        await getDrivers()
+        await getAllDrivers()
             .then(driver => res.status(200).json(driver))
     } catch (error) {
         res.status(400).json({ error: error.message })
@@ -20,14 +18,15 @@ router.get('/drivers', async (req, res) => {
 //Route get drivers by ID, incluye los datos de los teams que están asociados a él y toda la información de él 
 
 router.get('/driver/:idDriver', async (req, res) => {
+    const { idDriver } = req.params;
+  
+    const source = isNaN(idDriver) ? "bdd" : "api";
+  
     try {
-        const idDriver = req.params.idDriver
-
-        await getDriverByPkAndTeams(idDriver)
-            .then(driver => res.status(200).json(driver))
-
+      const driver = await getDriverById(source, idDriver);
+      res.status(200).json(driver);
     } catch (error) {
-        res.status(400).json({ error: error.message })
+      res.status(400).json({ error: error.message });
     }
 })
 
@@ -35,7 +34,7 @@ router.get('/driver/:idDriver', async (req, res) => {
 router.get('/drivers/name', async (req, res) => {
     try {
         const queryName = req.query.name;
-        const drivers = await searchDriversByName(queryName);
+        const drivers = await getDriverByName(queryName);
         res.status(200).json(drivers);
     } catch (error) {
         res.status(400).json({ error: error.message });

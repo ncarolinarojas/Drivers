@@ -4,6 +4,7 @@ import LandingPage from '../pages/LandingPage';
 import Home from '../pages/Home';
 import Navbar from '../components/Navbar';
 import CreateDriver from './CreateDriver';
+import Details from './Detail';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='/home' element={<Home />} />
         <Route path='/createDriver' element={<CreateDriver />} />
+        <Route path='/details/:id' element={<Details/>}/>
       </Routes>
     </>
   )

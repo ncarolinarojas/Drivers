@@ -1,5 +1,5 @@
 import Cards from "../../components/Cards";
-
+import SearchBar from "../../components/Searchbar";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getDrivers, getTeams } from '../../redux/action/index';
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <>
       <div>
-
+        <SearchBar />
       </div>
 
       <div>

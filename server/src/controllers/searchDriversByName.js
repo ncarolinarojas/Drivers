@@ -1,34 +1,32 @@
-const { Driver, Team } = require('../db');
-const { Op } = require('sequelize');
+const { Driver } = require('../db')
+const Sequelize = require("sequelize")
+const {getAllApiDrivers, cleanArray} = require('../controllers/getDrivers')
 
-const searchDriversByName = async (queryName) => {
-    try {
-        const drivers = await Driver.findAll({
-            where: {
-                forename: {
-                    [Op.iLike]: `%${queryName}%` // Búsqueda case-insensitive
-                }
-            },
-            include: [
-                {
-                    model: Team,
-                    through: 'driver_teams',
-                    attributes: ['id', 'name']
-                }
-            ],
-            limit: 15
-        });
-
-        if (drivers.length === 0) {
-            throw new Error('No se encontraron drivers con ese nombre.');
-        }
-
-        return drivers;
-    } catch (error) {
-        throw new Error(`Error in searchDriversByName: ${error.message}`);
-    }
-};
+const getDriverByName = async (forename) => {
+    const bddDrivers = await Driver.findAll({
+      where: {
+        forename: {
+          [Sequelize.Op.iLike]: `%${forename}%`,
+        },
+      },
+      limit: 15,
+    });
+  
+    let apiDriversRow = await getAllApiDrivers();
+  
+    const apiDrivers = cleanArray(apiDriversRow);
+  
+    const filteredApi = apiDrivers.filter((driver) =>
+      driver.forename.toLowerCase().includes(forename.toLowerCase())
+    );
+  
+    const remainingSlots = Math.max(0, 15 - bddDrivers.length);
+  
+    const selectedApiDrivers = filteredApi.slice(0, remainingSlots);
+  
+    return [...bddDrivers, ...selectedApiDrivers];
+  };
 
 module.exports = {
-    searchDriversByName
-};
+    getDriverByName
+}

@@ -31,7 +31,7 @@ export const getDrivers = () => {
 export const getDriverDetail = (id) => {
   return async (dispatch) => {
     try {
-      let response = (await axios.get(`http://localhost:3001/drivers/${id}`))
+      let response = (await axios.get(`http://localhost:3001/driver/${id}`))
         .data;
 
       return dispatch({ type: GET_DRIVER_DETAIL, payload: response });
