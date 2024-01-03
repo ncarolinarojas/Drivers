@@ -42,7 +42,6 @@ const getBddDrivers = async () => {
       image: driver.image,
       nationality: driver.nationality,
       dob: driver.dob,
-      teams: driver.Teams.map((team) => team.teamName).join(", "),
       created: true,
     };
   });
@@ -55,7 +54,7 @@ const getBddDriverById = async (id) => {
     include: [
       {
         model: Team,
-        attributes: ["name"],
+        attributes: ["teamName"],
         through: { attributes: [] },
       },
     ],
@@ -146,7 +145,7 @@ const createDriver = async (
 };
 
 module.exports = {
-  getAllDrivers, // ok
+  getAllDrivers,
   getDriverByName,
   getDriverById,
   createDriver,

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Pagination } from '../Paginate/index';
 //import { orderCards, filterCards } from "../../redux/actions/actions";
+import '../Cards/cards.css';
 
 const Cards = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const Cards = () => {
         </select>
       </div>
 
-      <div>
+      <div className='general'>
         {drivers
           .map((driver) => {
             return (
