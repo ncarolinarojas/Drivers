@@ -54,7 +54,7 @@ const getBddDriverById = async (id) => {
     include: [
       {
         model: Team,
-        attributes: ["teamName"],
+        attributes: ["name"],
         through: { attributes: [] },
       },
     ],

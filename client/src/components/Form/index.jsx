@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import validate from "./validate";
 import axios from 'axios';
 import teams from "./teams";
+import '../Form/form.css';
 
 function FormDriver() {
 
@@ -43,7 +44,8 @@ function FormDriver() {
         axios.post('http://127.0.0.1:3001/postDriver', driver)
             .then((res) => {
                 if (res.status === 200) {
-                    setError({ ...error, 
+                    setError({
+                        ...error,
                         forename: '',
                         surname: '',
                         description: '',
@@ -83,10 +85,11 @@ function FormDriver() {
     }, []);
 
     return (
-        <div>
+        <div className='formulario'>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor='forename'>Name</label>
+                <h2 className='tracking-in-expand'>Create your driver</h2>
+                <div className='item'>
+                    <label htmlFor='forename'>Name </label>
                     <input
                         type='text'
                         name='forename'
@@ -94,11 +97,11 @@ function FormDriver() {
                         onChange={handleChange}
                     />
                     <div>
-                        <span>{error.forename}</span>
+                        <span className='required'>{error.forename}</span>
                     </div>
                 </div>
-                <div>
-                    <label htmlFor='surname'>Last Name</label>
+                <div className='item'>
+                    <label htmlFor='surname'>Last Name </label>
                     <input
                         type='text'
                         name='surname'
@@ -106,12 +109,12 @@ function FormDriver() {
                         onChange={handleChange}
                     />
                     <div>
-                        <span>{error.surname}</span>
+                        <span className='required'>{error.surname}</span>
                     </div>
 
                 </div>
-                <div>
-                    <label htmlFor='description'>Description</label>
+                <div className='item'>
+                    <label htmlFor='description'>Description </label>
                     <input
                         type='text'
                         name='description'
@@ -119,11 +122,11 @@ function FormDriver() {
                         onChange={handleChange}
                     />
                     <div>
-                        <span>{error.description}</span>
+                        <span className='required'>{error.description}</span>
                     </div>
                 </div>
-                <div>
-                    <label htmlFor='image'>URL image</label>
+                <div className='item'>
+                    <label htmlFor='image'>URL image </label>
                     <input
                         type='text'
                         name='image'
@@ -131,11 +134,11 @@ function FormDriver() {
                         onChange={handleChange}
                     />
                     <div>
-                        <span>{error.image}</span>
+                        <span className='required'>{error.image}</span>
                     </div>
                 </div>
-                <div>
-                    <label htmlFor='nacionality'>Nationality</label>
+                <div className='item'>
+                    <label htmlFor='nacionality'>Nationality </label>
                     <input
                         type='text'
                         name='nacionality'
@@ -143,11 +146,11 @@ function FormDriver() {
                         onChange={handleChange}
                     />
                     <div>
-                        <span>{error.nacionality}</span>
+                        <span className='required'>{error.nacionality}</span>
                     </div>
                 </div>
-                <div>
-                    <label htmlFor='birth'>Birth</label>
+                <div className='item'>
+                    <label htmlFor='birth'>Birth </label>
                     <input
                         type='date'
                         name='birth'
@@ -155,31 +158,34 @@ function FormDriver() {
                         onChange={handleChange}
                     />
                     <div>
-                        <span>{error.birth}</span>
+                        <span className='required'>{error.birth} </span>
                     </div>
                 </div>
 
                 <div className='teams'>
-                <p>Select teams</p>
-                <label>Teams</label>
-                <select 
-                id="teams" 
-                onChange={handleChange}
-                multiple
-                style={{ height: "200px" }}
-                >
-                    {teamsOptions.map((team) => (
-                        <option key={team.id} value={team.id}>
-                            {team.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
+                    <p>Select teams with control + click in the team and submit</p>
+                    <label></label>
+                    <select
+                        id="teams"
+                        onChange={handleChange}
+                        multiple
+                        style={{ height: "200px" }}
+                    >
+                        {teamsOptions.map((team) => (
+                            <option key={team.id} value={team.id}>
+                                {team.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
                 <div>
-                    <span> {error.message}</span>
+                    <span className='span-general'> {error.message}</span>
                 </div>
-                <button type="submit" className='submit'>Submit</button>
+                <div className='but'>
+                    <button type="submit" className='button' >Submit</button>
+                </div>
+
 
             </form>
         </div>

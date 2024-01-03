@@ -2,15 +2,7 @@ const { Driver, Team } = require('../db');
 const axios = require('axios');
 
 const getBddDriverById = async (id) => {
-    const bddDriver = await Driver.findByPk(id, {
-        include: [
-            {
-                model: Team,
-                attributes: ["teamName"],
-                through: { attributes: [] },
-            },
-        ],
-    });
+    const bddDriver = await Driver.findByPk();
 
     return {
         id: bddDriver.id,
