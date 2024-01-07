@@ -1,6 +1,8 @@
 const validate = (form, error, setError) => {
 
     let isValid = true
+    let regexImagen = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(jpg|jpeg|png|gif|bmp)$/i;
+
 
     if (!form.forename.trim()) {
         setError((prevError) => ({ ...prevError, forename: 'required' }));
@@ -17,7 +19,7 @@ const validate = (form, error, setError) => {
         isValid = false;
     } else setError((prevError) => ({ ...prevError, description: '' }));
 
-    if (/\.(jpeg|jpg|gif|png|bmp)$/i.test(form.image)) {
+    if (regexImagen.test(form.image)) {
         setError((prevError) => ({ ...prevError, image: 'required' }));
         isValid = false;
     } else setError((prevError) => ({ ...prevError, image: '' }));

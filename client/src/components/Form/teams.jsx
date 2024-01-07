@@ -9,8 +9,12 @@ const teams = async () => {
         id: team.id,
         name: team.name,
       }));
+    
+      const teamsReady = [...teamsOptions].sort((a, b) => 
+        a.name.localeCompare(b.name)
+      )
 
-      return teamsOptions;
+      return teamsReady
     } else {
       throw new Error('Error getting teams');
     }

@@ -172,7 +172,10 @@ function FormDriver() {
                         style={{ height: "200px" }}
                     >
                         {teamsOptions.map((team) => (
-                            <option key={team.id} value={team.id}>
+                            <option 
+                            key={team.id} 
+                            value={team.id}
+                            >
                                 {team.name}
                             </option>
                         ))}
